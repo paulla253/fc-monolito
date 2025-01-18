@@ -5,9 +5,7 @@ import ClientGateway from "../gateway/client.gateway";
 import { ClientModel } from "./client.model";
 
 export default class ClientRepository implements ClientGateway {
-
   async add(entity: Client): Promise<void> {
-
     await ClientModel.create({
       id: entity.id.id,
       name: entity.name,
@@ -20,16 +18,15 @@ export default class ClientRepository implements ClientGateway {
       state: entity.address.state,
       zipcode: entity.address.zipCode,
       createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt
-    })
+      updatedAt: entity.updatedAt,
+    });
   }
 
   async find(id: string): Promise<Client> {
-
-    const client = await ClientModel.findOne({ where: { id } })
+    const client = await ClientModel.findOne({ where: { id } });
 
     if (!client) {
-      throw new Error("Client not found")
+      throw new Error("Client not found");
     }
 
     return new Client({
@@ -37,16 +34,16 @@ export default class ClientRepository implements ClientGateway {
       name: client.name,
       email: client.email,
       document: client.document,
-      address: new Address(
-        client.street,
-        client.number,
-        client.complement,
-        client.city,
-        client.state,
-        client.zipcode,
-      ),
+      address: new Address({
+        street: client.street,
+        number: client.number,
+        complement: client.complement,
+        city: client.city,
+        state: client.state,
+        zipCode: client.zipcode,
+      }),
       createdAt: client.createdAt,
-      updatedAt: client.createdAt
-    })
+      updatedAt: client.createdAt,
+    });
   }
 }
