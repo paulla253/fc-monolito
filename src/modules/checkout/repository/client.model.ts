@@ -1,22 +1,33 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  Column,
+  DataType,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
+import { OrderModel } from "./order.model";
 
 @Table({
-  tableName: "client",
+  tableName: "order_clients",
   timestamps: false,
 })
-export class ClientAdminModel extends Model {
+export class ClientCheckoutModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
-  id: string;
+  declare id: string;
+
+  @HasMany(() => OrderModel)
+  declare orders: Awaited<OrderModel[]>;
 
   @Column({ allowNull: false })
-  name: string;
+  declare name: string;
 
   @Column({ allowNull: false })
-  email: string;
+  declare email: string;
 
   @Column({ allowNull: false })
-  document: string;
+  declare document: string;
 
   @Column({ allowNull: false })
   street: string;
@@ -34,11 +45,5 @@ export class ClientAdminModel extends Model {
   state: string;
 
   @Column({ allowNull: false })
-  zipcode: string;
-
-  @Column({ allowNull: false })
-  createdAt: Date;
-
-  @Column({ allowNull: false })
-  updatedAt: Date;
+  zipCode: string;
 }

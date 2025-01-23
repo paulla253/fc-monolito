@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
-import { ClientModel } from "../repository/client.model";
+import { ClientAdminModel } from "../repository/client.model";
 import ClientRepository from "../repository/client.repository";
 import AddClientUseCase from "../usecase/add-client/add-client.usecase";
 import ClientAdmFacade from "./client-adm.facade";
@@ -17,7 +17,7 @@ describe("Client Adm Facade test", () => {
       sync: { force: true },
     });
 
-    sequelize.addModels([ClientModel]);
+    sequelize.addModels([ClientAdminModel]);
     await sequelize.sync();
   });
 
@@ -50,7 +50,7 @@ describe("Client Adm Facade test", () => {
 
     await facade.add(input);
 
-    const client = await ClientModel.findOne({ where: { id: "1" } });
+    const client = await ClientAdminModel.findOne({ where: { id: "1" } });
 
     expect(client).toBeDefined();
     expect(client.id).toBe(input.id);
