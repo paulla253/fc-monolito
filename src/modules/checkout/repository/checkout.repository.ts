@@ -1,11 +1,11 @@
+import { OrderModel } from "../../../migration/model/order.model";
+import { OrderProductModel } from "../../../migration/model/order-product.model";
 import Address from "../../@shared/domain/value-object/address";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import { ClientCheckoutEntity } from "../domain/client-checkout.entity";
 import { OrderCheckout } from "../domain/order-checkout.entity";
 import { ProductStoreCheckoutEntity } from "../domain/product-store-checkout.entity";
 import { CheckoutGatewayInterface } from "../gateway/checkout-gatewayInterface";
-import { OrderModel } from "./order.model";
-import { ProductModel } from "./product.model";
 
 export class CheckoutRepository implements CheckoutGatewayInterface {
   async addOrder(order: OrderCheckout): Promise<void> {
@@ -22,11 +22,7 @@ export class CheckoutRepository implements CheckoutGatewayInterface {
       status: order.status,
     };
     await OrderModel.create(input, {
-      include: [
-        {
-          model: ProductModel,
-        },
-      ],
+      include: [OrderProductModel],
     });
   }
 
@@ -46,7 +42,7 @@ export class CheckoutRepository implements CheckoutGatewayInterface {
       complement: order.client.complement,
       city: order.client.city,
       state: order.client.state,
-      zipCode: order.client.zipCode,
+      zipcode: order.client.zipcode,
     });
 
     return new OrderCheckout({
