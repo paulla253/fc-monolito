@@ -4,10 +4,10 @@ import Id from "../../@shared/domain/value-object/id.value-object";
 import Address from "../../@shared/domain/value-object/address";
 import { ClientCheckoutEntity } from "../domain/client-checkout.entity";
 import { OrderCheckout } from "../domain/order-checkout.entity";
-import { OrderModel } from "./order.model";
-import { ClientCheckoutModel } from "./client.model";
-import { ProductModel } from "./product.model";
 import { CheckoutRepository } from "./checkout.repository";
+import { OrderModel } from "../../../migration/model/order.model";
+import { ClientModel } from "../../../migration/model/client.model";
+import { OrderProductModel } from "../../../migration/model/order-product.model";
 
 const product1 = new ProductStoreCheckoutEntity({
   id: new Id("1"),
@@ -31,7 +31,7 @@ const address = new Address({
   complement: "Complement",
   city: "City",
   state: "State",
-  zipCode: "00000-000",
+  zipcode: "00000-000",
 });
 
 const client = new ClientCheckoutEntity({
@@ -60,7 +60,7 @@ describe("Checkout Repository unit test", () => {
       sync: { force: true },
     });
 
-    sequelize.addModels([OrderModel, ClientCheckoutModel, ProductModel]);
+    sequelize.addModels([OrderModel, ClientModel, OrderProductModel]);
 
     await sequelize.sync();
   });
@@ -72,7 +72,7 @@ describe("Checkout Repository unit test", () => {
   it("Should be able to place an order", async () => {
     const checkoutRepository = new CheckoutRepository();
 
-    await ClientCheckoutModel.create({
+    await ClientModel.create({
       id: client.id.id,
       name: client.name,
       email: client.email,
@@ -82,7 +82,9 @@ describe("Checkout Repository unit test", () => {
       complement: client.address.complement,
       city: client.address.city,
       state: client.address.state,
-      zipCode: client.address.zipCode,
+      zipcode: client.address.zipcode,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     await checkoutRepository.addOrder(order);
@@ -118,7 +120,7 @@ describe("Checkout Repository unit test", () => {
   it("Should be able to find a invoice", async () => {
     const checkoutRepository = new CheckoutRepository();
 
-    await ClientCheckoutModel.create({
+    await ClientModel.create({
       id: client.id.id,
       name: client.name,
       email: client.email,
@@ -128,7 +130,7 @@ describe("Checkout Repository unit test", () => {
       complement: client.address.complement,
       city: client.address.city,
       state: client.address.state,
-      zipCode: client.address.zipCode,
+      zipcode: client.address.zipcode,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
@@ -150,10 +152,10 @@ describe("Checkout Repository unit test", () => {
       {
         include: [
           {
-            model: ProductModel,
+            model: OrderProductModel,
           },
           {
-            model: ClientCheckoutModel,
+            model: ClientModel,
           },
         ],
       }

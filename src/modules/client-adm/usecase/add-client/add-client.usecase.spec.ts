@@ -23,7 +23,7 @@ describe("Add Client use case unit test", () => {
         complement: "Casa Verde",
         city: "Criciúma",
         state: "SC",
-        zipCode: "88888-888",
+        zipcode: "88888-888",
       }),
     };
 

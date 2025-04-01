@@ -1,10 +1,12 @@
 import { Sequelize } from "sequelize-typescript";
-import { ClientAdminModel } from "../repository/client.model";
 import ClientRepository from "../repository/client.repository";
 import AddClientUseCase from "../usecase/add-client/add-client.usecase";
 import ClientAdmFacade from "./client-adm.facade";
 import ClientAdmFacadeFactory from "../factory/client-adm.facade.factory";
 import Address from "../../@shared/domain/value-object/address";
+import { ClientModel } from "../../../migration/model/client.model";
+import { OrderModel } from "../../../migration/model/order.model";
+import { OrderProductModel } from "../../../migration/model/order-product.model";
 
 describe("Client Adm Facade test", () => {
   let sequelize: Sequelize;
@@ -17,7 +19,7 @@ describe("Client Adm Facade test", () => {
       sync: { force: true },
     });
 
-    sequelize.addModels([ClientAdminModel]);
+    sequelize.addModels([ClientModel, OrderModel, OrderProductModel]);
     await sequelize.sync();
   });
 
@@ -44,13 +46,13 @@ describe("Client Adm Facade test", () => {
         complement: "Casa Verde",
         city: "Criciúma",
         state: "SC",
-        zipCode: "88888-888",
+        zipcode: "88888-888",
       }),
     };
 
     await facade.add(input);
 
-    const client = await ClientAdminModel.findOne({ where: { id: "1" } });
+    const client = await ClientModel.findOne({ where: { id: "1" } });
 
     expect(client).toBeDefined();
     expect(client.id).toBe(input.id);
@@ -82,7 +84,7 @@ describe("Client Adm Facade test", () => {
         complement: "Casa Verde",
         city: "Criciúma",
         state: "SC",
-        zipCode: "88888-888",
+        zipcode: "88888-888",
       }),
     };
 
@@ -100,6 +102,6 @@ describe("Client Adm Facade test", () => {
     expect(client.address.complement).toBe(input.address.complement);
     expect(client.address.city).toBe(input.address.city);
     expect(client.address.state).toBe(input.address.state);
-    expect(client.address.zipCode).toBe(input.address.zipCode);
+    expect(client.address.zipcode).toBe(input.address.zipcode);
   });
 });

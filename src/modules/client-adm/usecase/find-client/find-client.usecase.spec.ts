@@ -14,7 +14,7 @@ const client = new Client({
     complement: "Casa Verde",
     city: "Criciúma",
     state: "SC",
-    zipCode: "88888-888",
+    zipcode: "88888-888",
   }),
 });
 

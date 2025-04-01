@@ -62,7 +62,7 @@ describe("Unit test Checkout use case", () => {
         complement: "Complement",
         city: "City",
         state: "State",
-        zipCode: "12345678",
+        zipcode: "12345678",
       });
 
       const client = {
@@ -192,7 +192,7 @@ describe("Unit test Checkout use case", () => {
           complement: client.address.complement,
           city: client.address.city,
           state: client.address.state,
-          zipCode: client.address.zipCode,
+          zipcode: client.address.zipcode,
           items: [
             {
               id: products["1"].id.id,

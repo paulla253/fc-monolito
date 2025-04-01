@@ -19,7 +19,7 @@ describe("Generate Invoice unit test", () => {
       complement: "Casa",
       city: "Sao Paulo",
       state: "SP",
-      zipCode: "12345678",
+      zipcode: "12345678",
       items: [
         {
           name: "Item 1",
@@ -43,7 +43,7 @@ describe("Generate Invoice unit test", () => {
     expect(result.complement).toBe("Casa");
     expect(result.city).toBe("Sao Paulo");
     expect(result.state).toBe("SP");
-    expect(result.zipCode).toBe("12345678");
+    expect(result.zipcode).toBe("12345678");
     expect(result.total).toBe(30);
     expect(result.items.length).toBe(2);
   });

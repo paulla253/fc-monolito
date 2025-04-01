@@ -12,7 +12,7 @@ const invoice = new Invoice({
     complement: "Casa",
     city: "Sao Paulo",
     state: "SP",
-    zipCode: "12345678",
+    zipcode: "12345678",
   },
   items: [
     {
@@ -53,7 +53,7 @@ describe("Find Invoice unit test", () => {
     expect(result.address.complement).toBe("Casa");
     expect(result.address.city).toBe("Sao Paulo");
     expect(result.address.state).toBe("SP");
-    expect(result.address.zipCode).toBe("12345678");
+    expect(result.address.zipcode).toBe("12345678");
     expect(result.total).toBe(30);
   });
 });

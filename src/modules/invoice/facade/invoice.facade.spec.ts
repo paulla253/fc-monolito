@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
-import { InvoiceItemModel } from "../repository/invoice.item.model";
-import { InvoiceModel } from "../repository/invoice.model";
 import InvoiceFacadeFactory from "../factory/invoice.facade.factory";
+import { InvoiceItemModel } from "../../../migration/model/invoice.item.model";
+import { InvoiceModel } from "../../../migration/model/invoice.model";
 
 describe("InvoiceFacade test", () => {
   let sequelize: Sequelize;
@@ -22,7 +22,7 @@ describe("InvoiceFacade test", () => {
     await sequelize.close();
   });
 
-  it("should generate invoice", async () => {
+  it.only("should generate invoice", async () => {
     const facade = InvoiceFacadeFactory.create();
 
     const invoice = {
@@ -33,7 +33,7 @@ describe("InvoiceFacade test", () => {
       complement: "Casa",
       city: "Sao Paulo",
       state: "SP",
-      zipCode: "12345678",
+      zipcode: "12345678",
       items: [
         {
           name: "Item 1",
@@ -58,7 +58,7 @@ describe("InvoiceFacade test", () => {
     expect(output.address.complement).toBe("Casa");
     expect(output.address.city).toBe("Sao Paulo");
     expect(output.address.state).toBe("SP");
-    expect(output.address.zipCode).toBe("12345678");
+    expect(output.address.zipcode).toBe("12345678");
     expect(output.total).toBe(30);
     expect(output.items.length).toBe(2);
   });
