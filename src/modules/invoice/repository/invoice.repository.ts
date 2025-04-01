@@ -1,10 +1,10 @@
+import { InvoiceItemModel } from "../../../migration/model/invoice.item.model";
+import { InvoiceModel } from "../../../migration/model/invoice.model";
 import Address from "../../@shared/domain/value-object/address";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import Invoice from "../domain/invoice";
 import InvoiceItem from "../domain/invoice-item";
 import InvoiceGateway from "../gateway/invoice.gateway";
-import { InvoiceItemModel } from "./invoice.item.model";
-import { InvoiceModel } from "./invoice.model";
 
 export class InvoiceRepository implements InvoiceGateway {
   async find(id: string): Promise<Invoice> {
@@ -22,7 +22,7 @@ export class InvoiceRepository implements InvoiceGateway {
         complement: invoice.complement,
         city: invoice.city,
         state: invoice.state,
-        zipCode: invoice.zipCode,
+        zipcode: invoice.zipcode,
       }),
       items: invoice.items.map(
         (item) =>
@@ -47,7 +47,7 @@ export class InvoiceRepository implements InvoiceGateway {
         complement: invoice.address.complement,
         city: invoice.address.city,
         state: invoice.address.state,
-        zipCode: invoice.address.zipCode,
+        zipcode: invoice.address.zipcode,
         items: invoice.items.map((item: InvoiceItem) => ({
           id: item.id.id,
           name: item.name,

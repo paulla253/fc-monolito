@@ -14,9 +14,10 @@ type InvoiceProps = {
     complement: string;
     city: string;
     state: string;
-    zipCode: string;
+    zipcode: string;
   };
   items?: {
+    id?: Id;
     name: string;
     price: number;
   }[];

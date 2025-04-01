@@ -6,7 +6,7 @@ export interface GenerateInvoiceInputDto {
   complement: string;
   city: string;
   state: string;
-  zipCode: string;
+  zipcode: string;
   items: {
     id?: string;
     name: string;
@@ -23,7 +23,7 @@ export interface GenerateInvoiceOutputDto {
   complement: string;
   city: string;
   state: string;
-  zipCode: string;
+  zipcode: string;
   items: {
     id: string;
     name: string;
@@ -46,7 +46,7 @@ export interface FindInvoiceUseCaseOutputDTO {
     complement: string;
     city: string;
     state: string;
-    zipCode: string;
+    zipcode: string;
   };
   items: {
     id: string;
