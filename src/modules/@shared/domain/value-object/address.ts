@@ -6,7 +6,7 @@ export type AddressProps = {
   complement: string;
   city: string;
   state: string;
-  zipCode: string;
+  zipcode: string;
 };
 
 export default class Address implements ValueObject {
@@ -15,7 +15,7 @@ export default class Address implements ValueObject {
   private _complement: string = "";
   private _city: string = "";
   private _state: string = "";
-  private _zipCode: string = "";
+  private _zipcode: string = "";
 
   constructor(payload: AddressProps) {
     this._street = payload.street;
@@ -23,7 +23,7 @@ export default class Address implements ValueObject {
     this._complement = payload.complement;
     this._city = payload.city;
     this._state = payload.state;
-    this._zipCode = payload.zipCode;
+    this._zipcode = payload.zipcode;
   }
 
   get street(): string {
@@ -46,8 +46,8 @@ export default class Address implements ValueObject {
     return this._state;
   }
 
-  get zipCode(): string {
-    return this._zipCode;
+  get zipcode(): string {
+    return this._zipcode;
   }
 
   validate() {
@@ -66,7 +66,7 @@ export default class Address implements ValueObject {
     if (this._state.length === 0) {
       throw new Error("State is required");
     }
-    if (this._zipCode.length === 0) {
+    if (this._zipcode.length === 0) {
       throw new Error("Zip code is required");
     }
   }
