@@ -1,5 +1,7 @@
+import Id from "../../../@shared/domain/value-object/id.value-object";
 import UseCaseInterface from "../../../@shared/usecase/use-case.interface";
 import Invoice from "../../domain/invoice";
+import InvoiceItem from "../../domain/invoice-item";
 import InvoiceGateway from "../../gateway/invoice.gateway";
 import {
   GenerateInvoiceInputDto,
@@ -20,13 +22,18 @@ export default class GenerateInvoiceUseCase implements UseCaseInterface {
         complement: input.complement,
         city: input.city,
         state: input.state,
-        zipCode: input.zipCode,
+        zipcode: input.zipcode,
       },
-      items: input.items,
+      items: input.items.map(
+        (item) =>
+          new InvoiceItem({
+            id: new Id(item.id),
+            name: item.name,
+            price: item.price,
+          })
+      ),
     });
-
     const total = invoice.calculateTotal();
-
     await this.invoiceRepository.save(invoice);
 
     return {
@@ -38,7 +45,7 @@ export default class GenerateInvoiceUseCase implements UseCaseInterface {
       complement: invoice.address.complement,
       city: invoice.address.city,
       state: invoice.address.state,
-      zipCode: invoice.address.zipCode,
+      zipcode: invoice.address.zipcode,
       items: invoice.items.map((item) => {
         return {
           id: item.id.id,

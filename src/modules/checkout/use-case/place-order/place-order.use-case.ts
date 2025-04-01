@@ -65,7 +65,7 @@ export class PlaceOrderUseCase implements UseCaseInterface {
             complement: client.address.complement,
             city: client.address.city,
             state: client.address.state,
-            zipCode: client.address.zipCode,
+            zipcode: client.address.zipcode,
             items: order.products.map((product) => ({
               id: product.id.id,
               name: product.name,
@@ -74,7 +74,7 @@ export class PlaceOrderUseCase implements UseCaseInterface {
           })
         : null;
     payment.status === "approved" && order.approved();
-    this._repository.addOrder(order);
+    await this._repository.addOrder(order);
     return {
       id: order.id.id,
       invoiceId: payment.status === "approved" ? invoice.id : null,
