@@ -1,7 +1,6 @@
 import {
   BelongsTo,
   Column,
-  DataType,
   ForeignKey,
   Model,
   PrimaryKey,
@@ -13,7 +12,7 @@ import { OrderModel } from "./order.model";
   tableName: "order_products",
   timestamps: false,
 })
-export class ProductModel extends Model {
+export class OrderProductModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
   declare id: string;

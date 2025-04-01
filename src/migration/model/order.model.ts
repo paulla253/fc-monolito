@@ -7,8 +7,8 @@ import {
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
-import { ClientCheckoutModel } from "./client.model";
-import { ProductModel } from "./product.model";
+import { ClientModel } from "./client.model";
+import { OrderProductModel } from "./order-product.model";
 
 @Table({
   tableName: "orders",
@@ -19,15 +19,15 @@ export class OrderModel extends Model {
   @Column({ allowNull: false })
   declare id: string;
 
-  @ForeignKey(() => ClientCheckoutModel)
+  @ForeignKey(() => ClientModel)
   @Column({ field: "client_id", allowNull: false })
   declare clientId: string;
 
-  @BelongsTo(() => ClientCheckoutModel)
-  declare client: Awaited<ClientCheckoutModel>;
+  @BelongsTo(() => ClientModel)
+  declare client: Awaited<ClientModel>;
 
-  @HasMany(() => ProductModel)
-  declare items: Awaited<ProductModel[]>;
+  @HasMany(() => OrderProductModel)
+  declare items: Awaited<OrderProductModel[]>;
 
   @Column({ allowNull: false })
   declare status: string;

@@ -38,7 +38,7 @@ export class InvoiceModel extends Model {
   state: string;
 
   @Column({ field: "zip_code", allowNull: false })
-  zipCode: string;
+  zipcode: string;
 
   @HasMany(() => InvoiceItemModel)
   items: Awaited<InvoiceItemModel[]>;
