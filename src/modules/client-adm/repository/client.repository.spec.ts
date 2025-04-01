@@ -1,9 +1,11 @@
 import { Sequelize } from "sequelize-typescript";
-import { ClientAdminModel } from "./client.model";
 import ClientRepository from "./client.repository";
 import Client from "../domain/client.entity";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import Address from "../../@shared/domain/value-object/address";
+import { ClientModel } from "../../../migration/model/client.model";
+import { OrderModel } from "../../../migration/model/order.model";
+import { OrderProductModel } from "../../../migration/model/order-product.model";
 
 describe("Client Repository test", () => {
   let sequelize: Sequelize;
@@ -16,7 +18,7 @@ describe("Client Repository test", () => {
       sync: { force: true },
     });
 
-    sequelize.addModels([ClientAdminModel]);
+    sequelize.addModels([ClientModel, OrderModel, OrderProductModel]);
     await sequelize.sync();
   });
 
@@ -36,14 +38,14 @@ describe("Client Repository test", () => {
         complement: "Casa Verde",
         city: "Criciúma",
         state: "SC",
-        zipCode: "88888-888",
+        zipcode: "88888-888",
       }),
     });
 
     const repository = new ClientRepository();
     await repository.add(client);
 
-    const clientDb = await ClientAdminModel.findOne({ where: { id: "1" } });
+    const clientDb = await ClientModel.findOne({ where: { id: "1" } });
 
     expect(clientDb).toBeDefined();
     expect(clientDb.id).toEqual(client.id.id);
@@ -55,13 +57,13 @@ describe("Client Repository test", () => {
     expect(clientDb.complement).toEqual(client.address.complement);
     expect(clientDb.city).toEqual(client.address.city);
     expect(clientDb.state).toEqual(client.address.state);
-    expect(clientDb.zipcode).toEqual(client.address.zipCode);
+    expect(clientDb.zipcode).toEqual(client.address.zipcode);
     expect(clientDb.createdAt).toStrictEqual(client.createdAt);
     expect(clientDb.updatedAt).toStrictEqual(client.updatedAt);
   });
 
   it("should find a client", async () => {
-    const client = await ClientAdminModel.create({
+    const client = await ClientModel.create({
       id: "1",
       name: "Lucian",
       email: "lucian@123.com",
@@ -87,7 +89,7 @@ describe("Client Repository test", () => {
     expect(result.address.complement).toEqual(client.complement);
     expect(result.address.city).toEqual(client.city);
     expect(result.address.state).toEqual(client.state);
-    expect(result.address.zipCode).toEqual(client.zipcode);
+    expect(result.address.zipcode).toEqual(client.zipcode);
     expect(result.createdAt).toStrictEqual(client.createdAt);
     expect(result.updatedAt).toStrictEqual(client.updatedAt);
   });

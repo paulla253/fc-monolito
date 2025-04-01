@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import Product from "../domain/product.entity";
-import { ProductAdmModel } from "./product.model";
+import { ProductModel } from "../../../migration/model/product.model";
 import ProductRepository from "./product.repository";
 
 describe("ProductRepository test", () => {
@@ -15,7 +15,7 @@ describe("ProductRepository test", () => {
       sync: { force: true },
     });
 
-    await sequelize.addModels([ProductAdmModel]);
+    await sequelize.addModels([ProductModel]);
     await sequelize.sync();
   });
 
@@ -35,7 +35,7 @@ describe("ProductRepository test", () => {
     const productRepository = new ProductRepository();
     await productRepository.add(product);
 
-    const productDb = await ProductAdmModel.findOne({
+    const productDb = await ProductModel.findOne({
       where: { id: productProps.id.id },
     });
 
@@ -49,10 +49,11 @@ describe("ProductRepository test", () => {
   it("should find a product", async () => {
     const productRepository = new ProductRepository();
 
-    ProductAdmModel.create({
+    ProductModel.create({
       id: "1",
       name: "Product 1",
       description: "Product 1 description",
+      salesPrice: 110,
       purchasePrice: 100,
       stock: 10,
       createdAt: new Date(),

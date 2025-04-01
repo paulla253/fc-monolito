@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize-typescript";
 import Invoice from "../domain/invoice";
 import Address from "../../@shared/domain/value-object/address";
-import { InvoiceModel } from "./invoice.model";
-import { InvoiceItemModel } from "./invoice.item.model";
 import { InvoiceRepository } from "./invoice.repository";
+import { InvoiceModel } from "../../../migration/model/invoice.model";
+import { InvoiceItemModel } from "../../../migration/model/invoice.item.model";
 
 const input = new Invoice({
   name: "John Doe",
@@ -14,7 +14,7 @@ const input = new Invoice({
     complement: "Complement",
     city: "City",
     state: "State",
-    zipCode: "12345678",
+    zipcode: "12345678",
   }),
   items: [
     {
@@ -62,7 +62,7 @@ describe("Integration test Invoice repository", () => {
     expect(output.address.complement).toBe(input.address.complement);
     expect(output.address.city).toBe(input.address.city);
     expect(output.address.state).toBe(input.address.state);
-    expect(output.address.zipCode).toBe(input.address.zipCode);
+    expect(output.address.zipcode).toBe(input.address.zipcode);
     expect(output.items.length).toBe(input.items.length);
     expect(output.items[0].id.id).toBe(input.items[0].id.id);
     expect(output.items[0].name).toBe(input.items[0].name);
@@ -90,7 +90,7 @@ describe("Integration test Invoice repository", () => {
     expect(output.complement).toBe(input.address.complement);
     expect(output.city).toBe(input.address.city);
     expect(output.state).toBe(input.address.state);
-    expect(output.zipCode).toBe(input.address.zipCode);
+    expect(output.zipcode).toBe(input.address.zipcode);
     expect(output.items.length).toBe(input.items.length);
     expect(output.items[0].id).toBe(input.items[0].id.id);
     expect(output.items[0].name).toBe(input.items[0].name);
